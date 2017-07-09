@@ -13,7 +13,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // temporary token from API explorer <link>https://developer.foursquare.com/docs/explore</link>
+        buildConfigField "String", "OAUTH_TOKEN", '"QVORUCD01M55IMLHTC0UQZL4RRI0YLS33FU0YHSHOXCYT3HK"'
+        buildConfigField "String", "VERSION_DATE", '"20170709"'
+        buildConfigField "String", "BASE_URL", '"https://api.foursquare.com/v2/"'
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,10 +27,14 @@ android {
         }
     }
 
-    // temporary token from API explorer <link>https://developer.foursquare.com/docs/explore</link>
-    buildConfigField "String", "OAUTH_TOKEN", '"QVORUCD01M55IMLHTC0UQZL4RRI0YLS33FU0YHSHOXCYT3HK"'
-    buildConfigField "String", "VERSION_DATE", '"20170709"'
-    buildConfigField "String", "BASE_URL", '"https://api.foursquare.com/v2/"'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {

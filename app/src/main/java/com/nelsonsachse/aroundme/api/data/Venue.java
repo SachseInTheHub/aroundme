@@ -13,6 +13,9 @@ public class Venue {
     @SerializedName("rating")
     double rating;
 
+    @SerializedName("location")
+    Location location;
+
     public String getId() {
         return id;
     }
@@ -23,5 +26,9 @@ public class Venue {
 
     public String getName() {
         return name;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }

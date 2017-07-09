@@ -6,6 +6,7 @@ import com.nelsonsachse.aroundme.base.BaseActivity;
 import com.nelsonsachse.aroundme.base.BasePresenter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -23,10 +24,15 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private final HomeAdapter adapter = new HomeAdapter();
+
     @Inject HomePresenter presenter;
 
-    @Override protected void onInitialize() {
+    @Override
+    protected void onInitialize() {
         super.onInitialize();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
     @Override protected void onInject() {
@@ -37,7 +43,7 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     }
 
     @Override protected int getLayoutId() {
-        return R.layout.home_activity;
+        return R.layout.activity_home;
     }
 
     @NonNull @Override protected BasePresenter<HomePresenter.View> getPresenter() {
@@ -49,7 +55,8 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     }
 
     @Override public void showVenues(final List<Venue> venues) {
-
+        adapter.setData(venues);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override public Observable<Object> onSearchClicked() {

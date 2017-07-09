@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/item_background"
     android:orientation="vertical"
     android:padding="@dimen/grid_2x">
@@ -9,20 +9,37 @@
     <TextView
         android:id="@+id/venue_textview_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_1x"
+        android:paddingEnd="@dimen/grid_1x"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/font_20"
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/venue_textview_address"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/grid_1x"
+        android:paddingEnd="@dimen/grid_1x"
+        android:textColor="@android:color/black"
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/venue_textview_postcode"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/grid_1x"
+        android:paddingEnd="@dimen/grid_1x"
+        android:textColor="@android:color/black"
+        android:typeface="serif" />
 
     <TextView
         android:id="@+id/venue_textview_rating"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/grid_1x"
+        android:paddingEnd="@dimen/grid_1x"
+        android:textColor="@android:color/black"
+        android:typeface="serif" />
 </LinearLayout>

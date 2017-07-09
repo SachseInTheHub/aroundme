@@ -32,6 +32,8 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     protected void onInitialize() {
         super.onInitialize();
 
+        setSupportActionBar(toolbar);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 

@@ -13,23 +13,36 @@
         android:minHeight="?attr/actionBarSize"
         app:titleTextColor="@android:color/white" />
 
-    <EditText
-        android:id="@+id/edittext_search"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/grid_13x"
-        android:background="@android:color/transparent"
-        android:imeOptions="actionDone"
-        android:inputType="text|textAutoCorrect"
-        android:minHeight="@dimen/grid_10x"
-        android:paddingBottom="@dimen/grid_2x"
-        android:paddingEnd="@dimen/grid_5x"
-        android:paddingStart="@dimen/grid_5x"
-        android:textCursorDrawable="@color/colorPrimary"
-        android:textSize="@dimen/font_15" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="@dimen/grid_7x"
-        android:layout_height="@dimen/grid_7x" />
+        <Button
+            android:id="@+id/main_button_search"
+            android:layout_width="@dimen/grid_20x"
+            android:layout_height="@dimen/grid_13x"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/item_background"
+            android:text="@string/search" />
+
+        <EditText
+            android:id="@+id/edittext_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_13x"
+            android:layout_toLeftOf="@+id/main_button_search"
+            
+            android:imeOptions="actionDone"
+            android:inputType="text|textAutoCorrect"
+            android:lines="1"
+            android:minHeight="@dimen/grid_10x"
+            android:paddingBottom="@dimen/grid_2x"
+            android:paddingEnd="@dimen/grid_5x"
+            android:paddingStart="@dimen/grid_5x"
+            android:textCursorDrawable="@color/colorPrimary"
+            android:textSize="@dimen/font_15" />
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

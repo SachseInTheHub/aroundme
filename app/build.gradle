@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // temporary token from API explorer <link>https://developer.foursquare.com/docs/explore</link>
+    buildConfigField "String", "OAUTH_TOKEN", '"QVORUCD01M55IMLHTC0UQZL4RRI0YLS33FU0YHSHOXCYT3HK"'
+    buildConfigField "String", "VERSION_DATE", '"20170709"'
+    buildConfigField "String", "BASE_URL", '"https://api.foursquare.com/v2/"'
 }
 
 dependencies {

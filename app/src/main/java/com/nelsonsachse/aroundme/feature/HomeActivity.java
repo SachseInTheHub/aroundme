@@ -1,5 +1,6 @@
 package com.nelsonsachse.aroundme.feature;
 
+import com.jakewharton.rxbinding2.view.RxView;
 import com.nelsonsachse.aroundme.R;
 import com.nelsonsachse.aroundme.api.data.Venue;
 import com.nelsonsachse.aroundme.base.BaseActivity;
@@ -9,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.EditText;
 
 import java.util.List;
 
@@ -23,6 +25,8 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     Toolbar toolbar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.edittext_search)
+    EditText searchView;
 
     private final HomeAdapter adapter = new HomeAdapter();
 
@@ -62,6 +66,6 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     }
 
     @Override public Observable<Object> onSearchClicked() {
-        return null;
+        return RxView.clicks(searchView);
     }
 }

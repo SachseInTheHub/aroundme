@@ -3,6 +3,7 @@ package com.nelsonsachse.aroundme.feature;
 import com.nelsonsachse.aroundme.R;
 import com.nelsonsachse.aroundme.api.data.Venue;
 
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,10 +57,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         void bind(final Venue venue) {
+            Resources resources = itemView.getContext().getResources();
+
             name.setText(venue.getName());
-            address.setText(venue.getLocation().getAddress());
-            postcode.setText(venue.getLocation().getPostalCode());
-            rating.setText(Double.toString(venue.getRating()));
+            address.setText(resources.getString(R.string.address, venue.getLocation().getAddress()));
+            postcode.setText(resources.getString(R.string.postcode, venue.getLocation().getPostalCode()));
+            rating.setText(resources.getString(R.string.rating, Double.toString(venue.getRating())));
         }
     }
 }

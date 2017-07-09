@@ -2,6 +2,7 @@
     package="com.nelsonsachse.aroundme">
 
     <application
+        android:name=".application.AroundMeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

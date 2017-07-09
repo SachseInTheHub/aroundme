@@ -9,7 +9,6 @@ import com.nelsonsachse.aroundme.base.BasePresenter;
 import com.nelsonsachse.aroundme.base.PerViewScope;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,8 @@ import javax.inject.Named;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
 
 @PerViewScope
 public class HomePresenter extends BasePresenter<HomePresenter.View> {
@@ -28,6 +29,7 @@ public class HomePresenter extends BasePresenter<HomePresenter.View> {
 
     private final Scheduler uiScheduler;
     private final ExploreService service;
+    private PublishSubject<String> searchSubject = PublishSubject.create();
 
     @Inject
     public HomePresenter(final ExploreService service,
@@ -39,36 +41,40 @@ public class HomePresenter extends BasePresenter<HomePresenter.View> {
     @Override public void onViewAttached(@NonNull final View view) {
         super.onViewAttached(view);
 
-        service.getExploreVenues("coffee", SEARCH_LOCATION)
-                .observeOn(uiScheduler)
-                .subscribe((exploreResponse, throwable) -> {
-                    List<Groups> groups = exploreResponse.getResponse().getGroups();
-                    for (Groups group : groups) {
-                        List<Items> items = group.getItems();
-
-                        List<Venue> venues = new ArrayList<>();
-                        for (Items item : items) {
-                            venues.add(item.getVenue());
-
-                            String name = item.getVenue().getName();
-                            String id = item.getVenue().getId();
-
-                            Log.d("ITEMS ", "" + name);
-                            Log.d("ITEMS ", "" + id);
-
-                        }
-                        view.showVenues(venues);
-                    }
-                });
+        disposeOnViewDetach(onSearchClicked(view));
+        disposeOnViewDetach(onSearchExecuted(view));
     }
 
+    private Disposable onSearchClicked(final View view) {
+        return view.onSearchClicked()
+                .observeOn(uiScheduler)
+                .subscribe(search -> searchSubject.onNext(search));
+    }
 
+    private Disposable onSearchExecuted(final View view) {
+        return searchSubject
+                .observeOn(uiScheduler)
+                .doOnNext(search -> service.getExploreVenues(search, SEARCH_LOCATION)
+                        .observeOn(uiScheduler)
+                        .subscribe((exploreResponse, throwable) -> {
+                            List<Groups> groups = exploreResponse.getResponse().getGroups();
+                            for (Groups group : groups) {
+                                List<Items> items = group.getItems();
+
+                                List<Venue> venues = new ArrayList<>();
+                                for (Items item : items) {
+                                    venues.add(item.getVenue());
+                                }
+                                view.showVenues(venues);
+                            }
+                        }))
+                .subscribe();
+    }
 
     public interface View {
 
         void showVenues(List<Venue> venues);
 
-        Observable<Object> onSearchClicked();
-
+        Observable<String> onSearchClicked();
     }
 }

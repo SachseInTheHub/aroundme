@@ -27,18 +27,17 @@
             android:text="@string/search" />
 
         <EditText
-            android:id="@+id/edittext_search"
+            android:id="@+id/main_edittext_search"
             android:layout_width="match_parent"
             android:layout_height="@dimen/grid_13x"
-            android:layout_toLeftOf="@+id/main_button_search"
-            
+            android:layout_toStartOf="@+id/main_button_search"
             android:imeOptions="actionDone"
             android:inputType="text|textAutoCorrect"
             android:lines="1"
             android:minHeight="@dimen/grid_10x"
             android:paddingBottom="@dimen/grid_2x"
             android:paddingEnd="@dimen/grid_5x"
-            android:paddingStart="@dimen/grid_5x"
+            android:paddingStart="@dimen/grid_2x"
             android:textCursorDrawable="@color/colorPrimary"
             android:textSize="@dimen/font_15" />
 

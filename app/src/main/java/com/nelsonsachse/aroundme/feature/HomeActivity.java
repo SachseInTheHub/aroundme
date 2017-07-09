@@ -1,15 +1,19 @@
 package com.nelsonsachse.aroundme.feature;
 
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.nelsonsachse.aroundme.R;
 import com.nelsonsachse.aroundme.api.data.Venue;
 import com.nelsonsachse.aroundme.base.BaseActivity;
 import com.nelsonsachse.aroundme.base.BasePresenter;
+import com.nelsonsachse.aroundme.utils.ViewUtils;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.List;
@@ -25,8 +29,10 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
     Toolbar toolbar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.edittext_search)
-    EditText searchView;
+    @BindView(R.id.main_edittext_search)
+    EditText searchEditView;
+    @BindView(R.id.main_button_search)
+    Button searchButtonView;
 
     private final HomeAdapter adapter = new HomeAdapter();
 
@@ -65,7 +71,15 @@ public class HomeActivity extends BaseActivity<HomePresenter.View> implements Ho
         recyclerView.setAdapter(adapter);
     }
 
-    @Override public Observable<Object> onSearchClicked() {
-        return RxView.clicks(searchView);
+    @Override public Observable<String> onSearchClicked() {
+        return Observable.merge(RxView.clicks(searchButtonView)
+                .doOnNext(o -> hideKeyboard()), RxTextView.editorActions(searchEditView)
+                .filter(key -> key == EditorInfo.IME_ACTION_DONE)
+                .doOnNext(o -> hideKeyboard()))
+                .map(o -> searchEditView.getText().toString());
+    }
+
+    private void hideKeyboard() {
+        ViewUtils.hideKeyboard(this);
     }
 }

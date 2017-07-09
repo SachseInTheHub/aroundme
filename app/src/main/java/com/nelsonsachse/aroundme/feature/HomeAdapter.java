@@ -21,9 +21,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_venue, parent, false);
-        VenueViewHolder venueViewHolder = new VenueViewHolder(view);
 
-        return venueViewHolder;
+        return new VenueViewHolder(view);
     }
 
     @Override public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
